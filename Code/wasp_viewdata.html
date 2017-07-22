@@ -73,37 +73,18 @@
 
 	</script>
 	
-   <img id="logo" src="https://docs.google.com/drawings/d/e/2PACX-1vSTv9n_EuGrEncROu0PxqjXtxmIktkoOTIR08dTjkv2G6ZDXOOXbQ4ncndgFDOVwQuMf4uVJiumb2eh/pub?w=1440&h=1080" alt="XYZ Logo">
-  <div class="event">
-  <p id="events"></p>
-  <p id="events1"></p>
-  <p id="events2"></p>
-  <p id="events3"></p>
-  </div>
-  <p id="demo"></p>
-   <p id="demo1"></p>
-   <p id="demo2"></p>
-   <div id="children">
-   </div>
-   
-  
+	<img id="logo" src="https://docs.google.com/drawings/d/e/2PACX-1vSTv9n_EuGrEncROu0PxqjXtxmIktkoOTIR08dTjkv2G6ZDXOOXbQ4ncndgFDOVwQuMf4uVJiumb2eh/pub?w=1440&h=1080" alt="XYZ Logo">
+	<div class="event" id="children">
+	</div>
+	<div class="event" id="events">
+	</div>
+
   <script>
   
 firebase.auth().onAuthStateChanged(function(user) {
           if(user) {
-            document.getElementById("demo").innerHTML = user.uid;
-
             //Kids
 			firebase.database().ref('/' + user.uid).once('value').then(function(snapshot) {
-              //var demo = snapshot.val();
-			  //var keys = Object.keys(demo);
-			 
-			  
-             
-			 //document.getElementById("demo").innerHTML = "Name: " + demo[keys[0]]["name"] + "	|	Age: " + demo[keys[0]]["age"];
-			   //document.getElementById("demo1").innerHTML = "Name: " + demo[keys[1]]["name"] + "	|	Age: " + demo[keys[1]]["age"];
-			    //document.getElementById("demo2").innerHTML = "Name: " + demo[keys[2]]["name"] + "	|	Age: " + demo[keys[2]]["age"];
-				
 				snapshot.forEach(function(snapshot) {
 					var child = snapshot.val();
 					var name = child["name"];
@@ -113,18 +94,19 @@ firebase.auth().onAuthStateChanged(function(user) {
 				
             });
 			
-			/*//Events
-			firebase.database().ref('/' + 'events').once('value').then(function(snapshot) {
-				var demo1 = snapshot.val();
-				var keyz = Object.keys(demo1);
-				document.getElementById("events").innerHTML =  demo1[keyz[0]]["title"] ;
-				document.getElementById("events1").innerHTML = "Date/Time: " + demo1[keyz[0]]["dateTime"] ;
-				document.getElementById("events2").innerHTML = "Details: " + demo1[keyz[0]]["details"] ;
-				document.getElementById("events3").innerHTML = "Location: " + demo1[keyz[0]]["location"] ;
+			//Kids
+			firebase.database().ref('/events').once('value').then(function(snapshot) {
+				snapshot.forEach(function(snapshot) {
+					var event = snapshot.val();
+					var title = event["title"];
+					var dateTime = event["dateTime"];
+					var details = event["details"];
+					var location = event["location"];
+					document.getElementById("children").innerHTML += "<p>Title: " + title + "	|	Date/Time: " + dateTime + "</p>";
+					document.getElementById("children").innerHTML += "<p>Details: " + details + "	|	Location: " + location + "</p>";
+				})
 				
-				document.getElementById("events").innerHTML += 
-				
-			});*/
+            });
           }
       });
 
