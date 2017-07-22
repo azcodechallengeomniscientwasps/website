@@ -79,7 +79,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             firebase.database().ref('/' + user.uid).once('value').then(function(snapshot) {
               var demo = snapshot.val();
 
-              document.getElementById("demo").innerHTML = demo;
+              document.getElementById("demo").innerHTML = demo["-KpcFV0ba65fnfWHJO1_"]["age"];
             });
           }
       });
