@@ -21,14 +21,7 @@
   // Get a reference to the database service
   var database = firebase.database();
 
-	var userId = firebase.auth().currentUser.uid;
-return firebase.database().ref('/' + userId).once('value').then(function(snapshot) {
-  var username = snapshot.val().username;
-  // ...
- var special = snapshot.children();
-
-document.getElementById("demo").innerHTML = special;
-});
+	
 
 	</script>
   <style>
@@ -45,6 +38,7 @@ text-align:center;
 padding-top: 1%;
 padding-bottom: 1%;
 margin: none;
+color: white;
 }
 #logo{
 width:40%;
@@ -56,6 +50,18 @@ margin-right: 30%;
   <body>
     
    <img id="logo" src="https://docs.google.com/drawings/d/e/2PACX-1vSTv9n_EuGrEncROu0PxqjXtxmIktkoOTIR08dTjkv2G6ZDXOOXbQ4ncndgFDOVwQuMf4uVJiumb2eh/pub?w=1440&h=1080" alt="XYZ Logo">
-   <p id="special"></p>
+   <p id="demo"></p>
+  <script>
+  var userId = firebase.auth().currentUser.uid;
+return firebase.database().ref('/' + userId).once('value').then(function(snapshot) {
+  
+  // ...
+ var demo = snapshot.val();
+
+
+
+}); 
+document.getElementById("demo").innerHTML = special;
+  </script>
   </body>
 </html>
